@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.thumbs {
+  text-align: center;
+}
+
+.active {
+  background-color: transparent !important;
+  color: #eeff25 !important;
+}
+
+.navbar a:hover {
+  background-color: transparent !important;
+  color: white !important;
+  outline: none;
+  outline-offset: 0;
+}
