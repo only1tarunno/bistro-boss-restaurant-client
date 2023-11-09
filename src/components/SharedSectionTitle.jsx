@@ -1,7 +1,7 @@
 const SharedSectionTitle = () => {
   return (
     <div>
-      <h2>ff</h2>
+      <h2>---From 11:00am to 10:00pm---</h2>
     </div>
   );
 };
