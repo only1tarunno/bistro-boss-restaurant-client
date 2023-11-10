@@ -17,3 +17,24 @@
   outline: none;
   outline-offset: 0;
 }
+.featured-item {
+  background-image: url("./assets/home/featured.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 40px;
+  background-attachment: fixed;
+  position: relative;
+  z-index: -10;
+}
+.featured-item::after {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background-color: #000;
+  opacity: 0.5;
+  z-index: -1;
+}
