@@ -19,10 +19,15 @@ const PopularMenu = () => {
         subHeading={"---Check it out---"}
         heading={"FROM OUR MENU"}
       ></SharedSectionTitle>
-      <div className="py-12 mb-4 grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-10">
+      <div className="pt-12 grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-10">
         {menu.map((item) => (
           <Menuitem key={item._id} item={item}></Menuitem>
         ))}
+      </div>
+      <div className="text-center mb-4 pb-12">
+        <button className="btn btn-outline border-0  border-b-2 mt-4">
+          View Full Menu
+        </button>
       </div>
     </div>
   );
