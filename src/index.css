@@ -38,3 +38,27 @@
   opacity: 0.5;
   z-index: -1;
 }
+.react-tabs__tab {
+  padding: 0 !important;
+  margin: 6px 12px;
+  font-weight: 500;
+}
+.react-tabs__tab--selected {
+  border: none !important;
+  font-weight: 700;
+  color: #bb8506 !important;
+  position: relative;
+  background-color: transparent !important;
+  padding: 0 !important;
+  margin: 6px 12px;
+}
+.react-tabs__tab--selected::before {
+  content: "";
+  position: absolute;
+  height: 3px;
+  width: 100%;
+  left: 0;
+  bottom: -3px;
+  z-index: 50;
+  background-color: #bb8506;
+}

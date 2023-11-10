@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Menuitem from "../../components/Menuitem";
 import SubpageCover from "../../components/SubpageCover";
 
@@ -18,9 +19,19 @@ const Menucategory = ({ items, img, heading, subheading }) => {
           ))}
         </div>
         <div className="text-center mb-4">
-          <button className="btn btn-outline border-0  border-b-2 mt-4">
-            ORDER YOUR FAVOURITE FOOD
-          </button>
+          {heading ? (
+            <Link to={`/shop/${heading}`}>
+              <button className="btn btn-outline border-0  border-b-2 mt-4">
+                ORDER YOUR FAVOURITE FOOD
+              </button>
+            </Link>
+          ) : (
+            <Link to={`/shop/salads`}>
+              <button className="btn btn-outline border-0  border-b-2 mt-4">
+                ORDER YOUR FAVOURITE FOOD
+              </button>
+            </Link>
+          )}
         </div>
       </div>
     </div>
