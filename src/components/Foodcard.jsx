@@ -12,7 +12,7 @@ const Foodcard = ({ item }) => {
         <h2 className="card-title justify-center">{name}</h2>
         <p>{recipe}</p>
         <div className="card-actions justify-center">
-          <button className="btn btn-outline border-0  border-b-2 mt-4 capitalize">
+          <button className="btn btn-outline border-0 bg-slate-100 border-[#bb8506] text-[#bb8506] border-b-2 mt-4 capitalize">
             add to cart{" "}
           </button>
         </div>
