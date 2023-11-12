@@ -12,6 +12,7 @@ const Shop = () => {
   const categories = ["salads", "pizza", "soup", "desserts", "drinks"];
   const { category } = useParams();
   const initialCategory = categories.indexOf(category);
+
   const [tabIndex, setTabIndex] = useState(initialCategory);
   const [menu] = useMenu();
 
