@@ -20,12 +20,12 @@ const AuthProvider = ({ children }) => {
 
   const login = (email, password) => {
     setLoading(true);
-    signInWithEmailAndPassword(auth, email, password);
+    return signInWithEmailAndPassword(auth, email, password);
   };
 
   const logOut = () => {
     setLoading(true);
-    signOut(auth);
+    return signOut(auth);
   };
 
   useEffect(() => {
