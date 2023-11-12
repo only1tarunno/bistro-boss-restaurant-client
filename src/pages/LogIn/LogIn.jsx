@@ -4,10 +4,13 @@ import {
   LoadCanvasTemplate,
   validateCaptcha,
 } from "react-simple-captcha";
+import useAuth from "../../hooks/useAuth";
+import { Link } from "react-router-dom";
 
 const LogIn = () => {
   const captchaRef = useRef(null);
   const [disabled, setdisabled] = useState(true);
+  const { login } = useAuth();
 
   useEffect(() => {
     loadCaptchaEnginge(6);
@@ -19,6 +22,9 @@ const LogIn = () => {
     const email = form.email.value;
     const password = form.password.value;
     console.log(email, password);
+    login(email, password).then((result) => {
+      console.log(result.user);
+    });
   };
   const handleValidateCaptcha = () => {
     const user_captcha_value = captchaRef.current.value;
@@ -65,11 +71,6 @@ const LogIn = () => {
                   className="input input-bordered"
                   required
                 />
-                <label className="label">
-                  <a href="#" className="label-text-alt link link-hover">
-                    Forgot password?
-                  </a>
-                </label>
               </div>
               <div className="form-control">
                 <input
@@ -96,6 +97,9 @@ const LogIn = () => {
                 </button>
               </div>
             </form>
+            <p className="text-center">
+              New here? <Link to="/register">Register</Link>
+            </p>
           </div>
         </div>
       </div>
