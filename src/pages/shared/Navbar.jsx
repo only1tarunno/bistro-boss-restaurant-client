@@ -1,9 +1,11 @@
 import { NavLink } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import { AiOutlineShoppingCart } from "react-icons/ai";
+import useCart from "../../hooks/useCart";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
+  const [cart] = useCart();
 
   const handleLogout = () => {
     logOut()
@@ -32,7 +34,7 @@ const Navbar = () => {
         <NavLink to="/">
           <button className="btn bg-transparent text-white p-0 border-none">
             <AiOutlineShoppingCart></AiOutlineShoppingCart>
-            <div className="badge badge-secondary">0</div>
+            <div className="badge badge-secondary">+{cart.length}</div>
           </button>
         </NavLink>
       </li>

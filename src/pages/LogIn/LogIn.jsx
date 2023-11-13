@@ -91,17 +91,17 @@ const LogIn = () => {
                     onBlur={handleValidateCaptcha}
                     placeholder="Retype the characters from captcha"
                     className="input input-bordered"
-                    required
                   />
                   <label className="label">
                     <LoadCanvasTemplate />
                   </label>
                 </div>
                 <div className="form-control mt-6">
+                  {/* add disable in false  */}
                   <input
                     type="submit"
                     value="Login"
-                    disabled={disabled}
+                    disabled={false}
                     className="btn btn-primary"
                   />
                 </div>
