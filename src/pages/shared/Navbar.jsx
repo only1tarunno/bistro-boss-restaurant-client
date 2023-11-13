@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+import { AiOutlineShoppingCart } from "react-icons/ai";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
@@ -26,6 +27,14 @@ const Navbar = () => {
       </li>
       <li>
         <NavLink to="/shop/salads">Our Shop</NavLink>
+      </li>
+      <li>
+        <NavLink to="/">
+          <button className="btn bg-transparent text-white p-0 border-none">
+            <AiOutlineShoppingCart></AiOutlineShoppingCart>
+            <div className="badge badge-secondary">0</div>
+          </button>
+        </NavLink>
       </li>
 
       {user ? (
@@ -78,7 +87,7 @@ const Navbar = () => {
           </a>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1 space-x-2 uppercase text-white font-bold hover:text-white">
+          <ul className="menu menu-horizontal items-center px-1 space-x-2 uppercase text-white font-bold hover:text-white">
             {navOptions}
           </ul>
         </div>

@@ -22,11 +22,7 @@ const router = createBrowserRouter([
       },
       {
         path: "shop/:category",
-        element: (
-          <PvtRoute>
-            <Shop></Shop>
-          </PvtRoute>
-        ),
+        element: <Shop></Shop>,
       },
     ],
   },

@@ -31,7 +31,6 @@ const ShopItemtab = ({ items }) => {
             ))}
           </div>
         </SwiperSlide>
-        <SwiperSlide>Slide 9</SwiperSlide>
       </Swiper>
     </div>
   );
