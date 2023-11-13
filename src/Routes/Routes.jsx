@@ -5,6 +5,7 @@ import Menu from "../pages/Menu/Menu";
 import Shop from "../pages/Shop/Shop";
 import LogIn from "../pages/LogIn/LogIn";
 import Register from "../pages/Register/Register";
+import PvtRoute from "./PvtRoute";
 
 const router = createBrowserRouter([
   {
@@ -21,7 +22,11 @@ const router = createBrowserRouter([
       },
       {
         path: "shop/:category",
-        element: <Shop></Shop>,
+        element: (
+          <PvtRoute>
+            <Shop></Shop>
+          </PvtRoute>
+        ),
       },
     ],
   },

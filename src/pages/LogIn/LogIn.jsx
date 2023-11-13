@@ -5,13 +5,16 @@ import {
   validateCaptcha,
 } from "react-simple-captcha";
 import useAuth from "../../hooks/useAuth";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import Swal from "sweetalert2";
 
 const LogIn = () => {
   const [disabled, setdisabled] = useState(true);
   const { login } = useAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location?.state?.from?.pathname || "/";
 
   useEffect(() => {
     loadCaptchaEnginge(6);
@@ -28,6 +31,7 @@ const LogIn = () => {
         icon: "success",
         title: "User log in sucess",
       });
+      navigate(from, { replace: true });
     });
   };
   const handleValidateCaptcha = (e) => {
