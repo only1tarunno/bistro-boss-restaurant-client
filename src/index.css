@@ -6,7 +6,7 @@
   text-align: center;
 }
 
-.active {
+.menu-horizontal > li .active {
   background-color: transparent !important;
   color: #eeff25 !important;
 }
