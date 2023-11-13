@@ -1,10 +1,11 @@
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 
 const Register = () => {
-  const { createUser } = useAuth();
+  const { createUser, updateUserProfile } = useAuth();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -13,10 +14,12 @@ const Register = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    createUser(data.email, data.password).then((result) => {
-      console.log(result.user);
+    createUser(data.email, data.password).then(() => {
+      updateUserProfile(data.name, data.photo).then(() => {
+        reset();
+        navigate("/");
+      });
     });
-    reset();
   };
 
   return (
@@ -37,6 +40,17 @@ const Register = () => {
             </div>
             <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
               <form onSubmit={handleSubmit(onSubmit)} className="card-body">
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Photo Url</span>
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Photo URL"
+                    {...register("photo")}
+                    className="input input-bordered"
+                  />
+                </div>
                 <div className="form-control">
                   <label className="label">
                     <span className="label-text">Name</span>
