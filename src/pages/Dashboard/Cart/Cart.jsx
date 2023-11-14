@@ -1,11 +1,16 @@
 import useCart from "../../../hooks/useCart";
 import SharedSectionTitle from "../../../components/SharedSectionTitle";
 import { FaTrash } from "react-icons/fa6";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const Cart = () => {
-  const [cart] = useCart();
+  const [cart, refetch] = useCart();
+  const axiosSecure = useAxiosSecure();
   const handleDelete = (id) => {
-    console.log(id);
+    axiosSecure.delete(`/carts/${id}`).then((res) => {
+      console.log(res.data);
+      refetch();
+    });
   };
 
   return (
@@ -18,8 +23,7 @@ const Cart = () => {
         <div className="flex justify-between pb-8">
           <h2 className="text-4xl">Total Items: {cart.length}</h2>
           <h2 className="text-4xl">
-            Total Price:{" "}
-            {cart.reduce((sum, item) => sum + item.price, 0).toFixed(2)}
+            Total Price: {cart.reduce((sum, item) => sum + item.price, 0)}
           </h2>
           <div>
             <button className="btn btn-primary">Pay</button>

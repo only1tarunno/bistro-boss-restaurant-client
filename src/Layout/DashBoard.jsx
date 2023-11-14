@@ -3,8 +3,10 @@ import { AiFillHome, AiFillCalendar, AiFillStar } from "react-icons/ai";
 import { BsFillCalendarHeartFill, BsFillCartFill } from "react-icons/bs";
 import { GiHamburgerMenu } from "react-icons/gi";
 import "./dashboard.css";
+import useCart from "../hooks/useCart";
 
 const DashBoard = () => {
+  const [cart] = useCart();
   return (
     <div className="flex">
       {/* dashboard sidebar  */}
@@ -22,7 +24,7 @@ const DashBoard = () => {
           </li>
           <li>
             <NavLink to="/dashboard/cart">
-              <BsFillCartFill></BsFillCartFill> My Cart
+              <BsFillCartFill></BsFillCartFill> My Cart ({cart.length})
             </NavLink>
           </li>
           <li>
