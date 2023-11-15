@@ -23,7 +23,8 @@ const Cart = () => {
         <div className="flex justify-between pb-8">
           <h2 className="text-4xl">Total Items: {cart.length}</h2>
           <h2 className="text-4xl">
-            Total Price: {cart.reduce((sum, item) => sum + item.price, 0)}
+            Total Price:{" "}
+            {cart.reduce((sum, item) => sum + item.price, 0).toFixed(1)}
           </h2>
           <div>
             <button className="btn btn-primary">Pay</button>

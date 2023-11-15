@@ -7,6 +7,10 @@ import useCart from "../hooks/useCart";
 
 const DashBoard = () => {
   const [cart] = useCart();
+
+  // get is admin value from database
+  const isAdmin = true;
+
   return (
     <div className="flex">
       {/* dashboard sidebar  */}

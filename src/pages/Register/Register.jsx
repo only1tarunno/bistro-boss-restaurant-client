@@ -2,9 +2,13 @@ import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
+
+import SocialLogin from "../../components/SocialLogin";
 
 const Register = () => {
   const { createUser, updateUserProfile } = useAuth();
+  const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
   const {
     register,
@@ -14,10 +18,18 @@ const Register = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    createUser(data.email, data.password).then(() => {
-      updateUserProfile(data.name, data.photo).then(() => {
-        reset();
-        navigate("/");
+    createUser(data?.email, data?.password).then(() => {
+      updateUserProfile(data?.name, data?.photo).then(() => {
+        // create user in data base
+        const userInfo = {
+          name: data?.name,
+          email: data?.email,
+        };
+        axiosPublic.post("/users", userInfo).then((res) => {
+          console.log(res.data);
+          reset();
+          navigate("/");
+        });
       });
     });
   };
@@ -100,7 +112,8 @@ const Register = () => {
                   <button className="btn btn-primary">Register</button>
                 </div>
               </form>
-              <p className="text-center">
+              <SocialLogin></SocialLogin>
+              <p className="text-center py-5">
                 Already have an account? <Link to="/login">Log In</Link>
               </p>
             </div>

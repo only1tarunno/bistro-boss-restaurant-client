@@ -8,6 +8,7 @@ import useAuth from "../../hooks/useAuth";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import Swal from "sweetalert2";
+import SocialLogin from "../../components/SocialLogin";
 
 const LogIn = () => {
   const [disabled, setdisabled] = useState(true);
@@ -106,7 +107,8 @@ const LogIn = () => {
                   />
                 </div>
               </form>
-              <p className="text-center">
+              <SocialLogin></SocialLogin>
+              <p className="text-center py-5">
                 New here? <Link to="/register">Register</Link>
               </p>
             </div>
