@@ -4,6 +4,7 @@ import { BsFillCalendarHeartFill, BsFillCartFill } from "react-icons/bs";
 import { GiHamburgerMenu } from "react-icons/gi";
 import "./dashboard.css";
 import useCart from "../hooks/useCart";
+import { FaBook, FaList, FaUsers, FaUtensils } from "react-icons/fa6";
 
 const DashBoard = () => {
   const [cart] = useCart();
@@ -16,31 +17,66 @@ const DashBoard = () => {
       {/* dashboard sidebar  */}
       <div className="w-64 pt-10 bg-orange-400 min-h-screen">
         <ul className="menu dashboard-menu space-y-2 capitalize">
-          <li>
-            <NavLink to="/dashboard/userHome">
-              <AiFillHome></AiFillHome> User Home
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/dashboard/reservation">
-              <AiFillCalendar></AiFillCalendar> Reservation
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/dashboard/cart">
-              <BsFillCartFill></BsFillCartFill> My Cart ({cart.length})
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/dashboard/rating">
-              <AiFillStar></AiFillStar> rating
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/dashboard/bookings">
-              <BsFillCalendarHeartFill></BsFillCalendarHeartFill> my bookings
-            </NavLink>
-          </li>
+          {isAdmin ? (
+            <>
+              <li>
+                <NavLink to="/dashboard/adminHome">
+                  <AiFillHome></AiFillHome> Admin Home
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/dashboard/addItems">
+                  <FaUtensils></FaUtensils> Add Items
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/dashboard/manageItems">
+                  <FaList></FaList> Manage Items
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/dashboard/managebookings">
+                  <FaBook></FaBook> Manage Bookings
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/dashboard/allUsers">
+                  <FaUsers></FaUsers> All Users
+                </NavLink>
+              </li>
+            </>
+          ) : (
+            <>
+              <li>
+                <NavLink to="/dashboard/userHome">
+                  <AiFillHome></AiFillHome> User Home
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/dashboard/reservation">
+                  <AiFillCalendar></AiFillCalendar> Reservation
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/dashboard/cart">
+                  <BsFillCartFill></BsFillCartFill> My Cart ({cart.length})
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/dashboard/rating">
+                  <AiFillStar></AiFillStar> rating
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/dashboard/bookings">
+                  <BsFillCalendarHeartFill></BsFillCalendarHeartFill> my
+                  bookings
+                </NavLink>
+              </li>
+            </>
+          )}
+
+          {/* shared nav link  */}
           <div className="divider"></div>
           <li>
             <NavLink to="/">
