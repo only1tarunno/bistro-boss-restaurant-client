@@ -5,12 +5,13 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import "./dashboard.css";
 import useCart from "../hooks/useCart";
 import { FaBook, FaList, FaUsers, FaUtensils } from "react-icons/fa6";
+import useAdmin from "../hooks/useAdmin";
 
 const DashBoard = () => {
   const [cart] = useCart();
 
   // get is admin value from database
-  const isAdmin = true;
+  const [isAdmin] = useAdmin();
 
   return (
     <div className="flex">

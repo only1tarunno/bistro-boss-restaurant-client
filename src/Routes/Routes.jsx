@@ -9,6 +9,8 @@ import PvtRoute from "./PvtRoute";
 import DashBoard from "../Layout/DashBoard";
 import Cart from "../pages/Dashboard/Cart/Cart";
 import AllUsers from "../pages/Dashboard/AllUsers/AllUsers";
+import Managebookings from "../pages/Dashboard/ManageBookings/Managebookings";
+import AdminRoute from "./AdminRoute";
 
 const router = createBrowserRouter([
   {
@@ -45,6 +47,14 @@ const router = createBrowserRouter([
       {
         path: "allUsers",
         element: <AllUsers></AllUsers>,
+      },
+      {
+        path: "managebookings",
+        element: (
+          <AdminRoute>
+            <Managebookings></Managebookings>
+          </AdminRoute>
+        ),
       },
     ],
   },
