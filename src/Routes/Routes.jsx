@@ -11,6 +11,7 @@ import Cart from "../pages/Dashboard/Cart/Cart";
 import AllUsers from "../pages/Dashboard/AllUsers/AllUsers";
 import Managebookings from "../pages/Dashboard/ManageBookings/Managebookings";
 import AdminRoute from "./AdminRoute";
+import AddItems from "../pages/Dashboard/AddItems/AddItems";
 
 const router = createBrowserRouter([
   {
@@ -46,13 +47,25 @@ const router = createBrowserRouter([
       // admin routes
       {
         path: "allUsers",
-        element: <AllUsers></AllUsers>,
+        element: (
+          <AdminRoute>
+            <AllUsers></AllUsers>
+          </AdminRoute>
+        ),
       },
       {
         path: "managebookings",
         element: (
           <AdminRoute>
             <Managebookings></Managebookings>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "addItems",
+        element: (
+          <AdminRoute>
+            <AddItems></AddItems>
           </AdminRoute>
         ),
       },
