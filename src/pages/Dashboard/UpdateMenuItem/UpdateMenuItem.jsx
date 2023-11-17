@@ -1,27 +1,34 @@
-import { useForm } from "react-hook-form";
+import { useParams } from "react-router-dom";
 import SharedSectionTitle from "../../../components/SharedSectionTitle";
-import { FaUtensils } from "react-icons/fa6";
+import { useForm } from "react-hook-form";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
-
+import { FaUtensils } from "react-icons/fa6";
+import { useQuery } from "@tanstack/react-query";
 // imgbb
 const imgbb_key = import.meta.env.VITE_imgbb_key;
 const img_hosting_api = `https://api.imgbb.com/1/upload?key=${imgbb_key}`;
 
-const AddItems = () => {
+const UpdateMenuItem = () => {
+  const { id } = useParams();
+
   const { register, handleSubmit } = useForm();
   const axiospublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
 
-  const onSubmit = async (data) => {
-    // upload img in imgbb then get img url
-    // const image = data.image[0];
-    // const formData = new FormData();
-    // formData.append("image", image);
-    // const res = await axiospublic.post(img_hosting_api, formData);
-    // console.log(res.data.data.display_url);
+  const {
+    data: menuitem = {},
+    isPending,
+    refetch,
+  } = useQuery({
+    queryKey: ["menusingleItem"],
+    queryFn: async () => {
+      const res = await axiospublic.get(`/menu/${id}`);
+      return res.data;
+    },
+  });
 
-    // 2nd method
+  const onSubmit = async (data) => {
     const imgfile = { image: data.image[0] };
     const res = await axiospublic.post(img_hosting_api, imgfile, {
       headers: {
@@ -30,7 +37,7 @@ const AddItems = () => {
     });
     if (res.data.success) {
       // now send the data in server
-      const menuitem = {
+      const updateItem = {
         name: data.name,
         price: data.price,
         category: data.category,
@@ -38,16 +45,26 @@ const AddItems = () => {
         recipe: data.recipe,
       };
 
-      const menuRes = await axiosSecure.post("/menu", menuitem);
+      const menuRes = await axiosSecure.patch(
+        `/menu/${menuitem._id}`,
+        updateItem
+      );
       console.log(menuRes.data);
+      if (menuRes.data.modifiedCount) {
+        refetch();
+      }
     }
   };
+
+  if (isPending) {
+    return <span className="loading loading-spinner loading-lg"></span>;
+  }
 
   return (
     <div>
       <SharedSectionTitle
-        heading={"ADD an Item"}
-        subHeading={"---What's New---"}
+        heading={"update An Items"}
+        subHeading={"---refresh info---"}
       ></SharedSectionTitle>
       <div className="max-w-screen-lg mx-auto">
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
@@ -58,6 +75,7 @@ const AddItems = () => {
             <input
               type="text"
               placeholder="Recipe Name"
+              defaultValue={menuitem.name}
               className="input input-bordered w-full"
               {...register("name")}
             />
@@ -68,6 +86,7 @@ const AddItems = () => {
                 <span className="label-text">Select Category*</span>
               </label>
               <select
+                defaultValue={menuitem.category}
                 className="select select-bordered w-full"
                 {...register("category")}
               >
@@ -84,6 +103,7 @@ const AddItems = () => {
               </label>
               <input
                 type="number"
+                defaultValue={menuitem.price}
                 className="input input-bordered w-full"
                 {...register("price")}
               />
@@ -96,6 +116,7 @@ const AddItems = () => {
             <textarea
               className="textarea textarea-bordered h-24"
               placeholder="Recipe Details"
+              defaultValue={menuitem.recipe}
               {...register("recipe")}
             ></textarea>
           </div>
@@ -110,7 +131,7 @@ const AddItems = () => {
             />
           </div>
           <button className="btn">
-            Add item <FaUtensils className="ml-4"></FaUtensils>
+            Update item <FaUtensils className="ml-4"></FaUtensils>
           </button>
         </form>
       </div>
@@ -118,4 +139,4 @@ const AddItems = () => {
   );
 };
 
-export default AddItems;
+export default UpdateMenuItem;

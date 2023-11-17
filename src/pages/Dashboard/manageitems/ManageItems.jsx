@@ -4,9 +4,10 @@ import SharedSectionTitle from "../../../components/SharedSectionTitle";
 import useMenu from "../../../hooks/useMenu";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { Link } from "react-router-dom";
 
 const ManageItems = () => {
-  const [menu, , refetch] = useMenu();
+  const [menu, isPending, refetch] = useMenu();
   const axiosSecure = useAxiosSecure();
 
   const handleDeleteitem = (item) => {
@@ -33,6 +34,9 @@ const ManageItems = () => {
       }
     });
   };
+  if (isPending) {
+    return <span className="loading loading-spinner loading-lg"></span>;
+  }
 
   return (
     <div>
@@ -71,9 +75,11 @@ const ManageItems = () => {
                   <td>{item?.name}</td>
                   <td>{item?.price}</td>
                   <td>
-                    <button className="btn btn-sm bg-orange-400 text-white">
-                      <FiEdit></FiEdit>
-                    </button>
+                    <Link to={`/dashboard/updateMneuItem/${item?._id}`}>
+                      <button className="btn btn-sm bg-orange-400 text-white">
+                        <FiEdit></FiEdit>
+                      </button>
+                    </Link>
                   </td>
                   <td>
                     <button
