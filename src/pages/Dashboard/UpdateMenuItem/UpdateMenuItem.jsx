@@ -29,30 +29,39 @@ const UpdateMenuItem = () => {
   });
 
   const onSubmit = async (data) => {
-    const imgfile = { image: data.image[0] };
-    const res = await axiospublic.post(img_hosting_api, imgfile, {
-      headers: {
-        "content-type": "multipart/form-data",
-      },
-    });
-    if (res.data.success) {
-      // now send the data in server
-      const updateItem = {
-        name: data.name,
-        price: data.price,
-        category: data.category,
-        image: res.data.data.display_url,
-        recipe: data.recipe,
-      };
-
-      const menuRes = await axiosSecure.patch(
-        `/menu/${menuitem._id}`,
-        updateItem
-      );
-      console.log(menuRes.data);
-      if (menuRes.data.modifiedCount) {
-        refetch();
+    let updateItem = {
+      name: data.name,
+      price: data.price,
+      category: data.category,
+      recipe: data.recipe,
+    };
+    // condition for checking image change or not
+    if (data.image.length > 0) {
+      const imgfile = { image: data.image[0] };
+      const res = await axiospublic.post(img_hosting_api, imgfile, {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      });
+      if (res.data.success) {
+        updateItem = {
+          ...updateItem,
+          image: res.data.data.display_url,
+        };
       }
+    } else {
+      updateItem = {
+        ...updateItem,
+        image: menuitem.image,
+      };
+    }
+    // now send the data in server
+    const menuRes = await axiosSecure.patch(
+      `/menu/${menuitem._id}`,
+      updateItem
+    );
+    if (menuRes.data.modifiedCount) {
+      refetch();
     }
   };
 
