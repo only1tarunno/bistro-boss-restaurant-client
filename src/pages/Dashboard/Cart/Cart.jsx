@@ -2,6 +2,7 @@ import useCart from "../../../hooks/useCart";
 import SharedSectionTitle from "../../../components/SharedSectionTitle";
 import { FaTrash } from "react-icons/fa6";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
   const [cart, refetch] = useCart();
@@ -27,7 +28,15 @@ const Cart = () => {
             {cart.reduce((sum, item) => sum + item.price, 0).toFixed(1)}
           </h2>
           <div>
-            <button className="btn btn-primary">Pay</button>
+            {cart.length ? (
+              <Link to="/dashboard/payment">
+                <button className="btn btn-primary">Pay</button>
+              </Link>
+            ) : (
+              <button disabled className="btn btn-primary">
+                Pay
+              </button>
+            )}
           </div>
         </div>
         <div className="overflow-x-auto">
