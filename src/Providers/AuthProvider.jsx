@@ -53,11 +53,12 @@ const AuthProvider = ({ children }) => {
         const userEmail = { email: currentUser?.email };
         axiosPublic.post("/jwt", userEmail).then((res) => {
           localStorage.setItem("Access-token", res?.data?.token);
+          setLoading(false);
         });
       } else {
         localStorage.removeItem("Access-token");
+        setLoading(false);
       }
-      setLoading(false);
     });
 
     return () => {

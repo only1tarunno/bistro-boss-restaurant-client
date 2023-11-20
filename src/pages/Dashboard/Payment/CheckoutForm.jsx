@@ -79,7 +79,7 @@ const CheckoutForm = () => {
         // now save the panent in database
         const payMent = {
           email: user.email,
-          price: totalPrice,
+          price: parseFloat(totalPrice),
           transactionId: paymentIntent.id,
           date: new Date(), //use moment js to convert date for other country
           cartIds: cart.map((item) => item._id),
@@ -88,7 +88,7 @@ const CheckoutForm = () => {
         };
 
         const res = await axiosSecure.post("/payments", payMent);
-        console.log(res.data);
+
         refetch();
         if (res.data?.result?.insertedId) {
           Swal.fire({

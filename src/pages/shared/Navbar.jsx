@@ -2,10 +2,12 @@ import { NavLink } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import useCart from "../../hooks/useCart";
+import useAdmin from "../../hooks/useAdmin";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
   const [cart] = useCart();
+  const [isAdmin] = useAdmin();
 
   const handleLogout = () => {
     logOut()
@@ -21,9 +23,16 @@ const Navbar = () => {
       <li>
         <NavLink to="/contact">CONTACT us</NavLink>
       </li>
-      <li>
-        <NavLink to="/dashboard">DASHBOARD</NavLink>
-      </li>
+      {isAdmin && user && (
+        <li>
+          <NavLink to="/dashboard/adminHome">DASHBOARD</NavLink>
+        </li>
+      )}
+      {!isAdmin && user && (
+        <li>
+          <NavLink to="/dashboard/userHome">DASHBOARD</NavLink>
+        </li>
+      )}
       <li>
         <NavLink to="/menu">Our Menu</NavLink>
       </li>
