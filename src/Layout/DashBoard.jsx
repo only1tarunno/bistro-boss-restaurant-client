@@ -54,8 +54,8 @@ const DashBoard = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/reservation">
-                  <AiFillCalendar></AiFillCalendar> Reservation
+                <NavLink to="/dashboard/paymentHistory">
+                  <AiFillCalendar></AiFillCalendar> Payment history
                 </NavLink>
               </li>
               <li>

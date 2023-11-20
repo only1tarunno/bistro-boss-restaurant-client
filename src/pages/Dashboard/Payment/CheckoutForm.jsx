@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useCart from "../../../hooks/useCart";
 import useAuth from "../../../hooks/useAuth";
+import Swal from "sweetalert2";
 
 const CheckoutForm = () => {
   const stripe = useStripe();
@@ -12,15 +13,17 @@ const CheckoutForm = () => {
   const [transactionId, setTransactionId] = useState("");
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
-  const [cart] = useCart();
+  const [cart, refetch] = useCart();
   const totalPrice = cart.reduce((sum, item) => sum + item.price, 0).toFixed(1);
 
   useEffect(() => {
-    axiosSecure
-      .post("/create-payment-intent", { price: totalPrice })
-      .then((res) => {
-        setclientSecret(res.data.clientSecret);
-      });
+    if (totalPrice > 0) {
+      axiosSecure
+        .post("/create-payment-intent", { price: totalPrice })
+        .then((res) => {
+          setclientSecret(res.data.clientSecret);
+        });
+    }
   }, [axiosSecure, totalPrice]);
 
   const handleSubmit = async (e) => {
@@ -72,6 +75,29 @@ const CheckoutForm = () => {
       if (paymentIntent.status === "succeeded") {
         console.log("trans id", paymentIntent.id);
         setTransactionId(paymentIntent.id);
+
+        // now save the panent in database
+        const payMent = {
+          email: user.email,
+          price: totalPrice,
+          transactionId: paymentIntent.id,
+          date: new Date(), //use moment js to convert date for other country
+          cartIds: cart.map((item) => item._id),
+          menuItemIds: cart.map((item) => item.menuId),
+          status: "pending",
+        };
+
+        const res = await axiosSecure.post("/payments", payMent);
+        console.log(res.data);
+        refetch();
+        if (res.data?.result?.insertedId) {
+          Swal.fire({
+            icon: "success",
+            title: "Your payment is success",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
       }
     }
     // --------------------------------------------
